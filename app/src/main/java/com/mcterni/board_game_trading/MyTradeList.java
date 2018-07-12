@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MyTradeList extends AppCompatActivity implements GameOverview.OnFragmentInteractionListener {
+public class MyTradeList extends AppCompatActivity  {
 
 
 
@@ -24,8 +24,4 @@ public class MyTradeList extends AppCompatActivity implements GameOverview.OnFra
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }

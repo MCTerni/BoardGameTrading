@@ -6,18 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MyTradeList">
 
+
+
     <fragment
-        android:id="@+id/item_fragment"
-        android:name="com.mcterni.board_game_trading.GameOverview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_game_overview"></fragment>
+        android:id="@+id/game_fragment"
+        android:name="com.mcterni.board_game_trading.GameOverviewListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></fragment>
 
 </android.support.constraint.ConstraintLayout>
