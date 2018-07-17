@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 
 public class GameOverviewListFragment extends ListFragment {
 
-    private GameOverviewList games = new GameOverviewList();
+    private GameOverviewList games = new GameOverviewList("carcassone");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

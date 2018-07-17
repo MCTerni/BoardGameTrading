@@ -19,14 +19,15 @@ public class MainActivity extends AppCompatActivity {
 
         mainImage = findViewById(R.id.imageMain);
 
-        mainImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("Main", "Click on Main Image");
-                Intent resultActivityIntent = new Intent(MainActivity.this,MyTradeList.class);
-                startActivity(resultActivityIntent);
+            mainImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e("Main", "Click on Main Image");
+                    Intent resultActivityIntent = new Intent(MainActivity.this, MyTradeList.class);
+                    startActivity(resultActivityIntent);
+                }
+            });
 
-            }
-        });
+
     }
 }
