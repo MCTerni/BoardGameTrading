@@ -4,12 +4,14 @@ package com.mcterni.board_game_trading;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class MyTradeList extends AppCompatActivity  {
 
 
     private ListView gameList;
+    private ImageButton searchButton;
     private GameOverviewList games = new GameOverviewList("carcassonne");
 
     @Override
@@ -18,11 +20,15 @@ public class MyTradeList extends AppCompatActivity  {
         setContentView(R.layout.activity_my_trade_list);
 
         gameList = findViewById(R.id.games_list_view);
+        searchButton = findViewById(R.id.search_button);
+
+
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(MyTradeList.this, android.R.layout.simple_list_item_1, games);
+
                 gameList.setAdapter(adapter);
             }
         });

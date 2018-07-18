@@ -61,7 +61,7 @@ public class BGGSearchXmlParser {
 // to their respective "read" methods for processing. Otherwise, skips the tag.
     private GameDetails readBoardgame(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, ns, "boardgame");
-        String id = "101";
+        String id = parser.getAttributeValue(0);//readId(parser);
         String name = null;
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -91,11 +91,11 @@ public class BGGSearchXmlParser {
     private String readId(XmlPullParser parser) throws IOException, XmlPullParserException {
         String id = null;
         parser.require(XmlPullParser.START_TAG, ns, "boardgame");
-        String tag = parser.getName();
-        if (tag.equals("boardgame")) {
-            id = parser.getAttributeValue(null, "objectid");
-            parser.nextTag();
-        }
+
+
+        id = parser.getAttributeValue(0);
+        parser.nextTag();
+
         parser.require(XmlPullParser.END_TAG, ns, "boardgame");
         return id;
     }
