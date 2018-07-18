@@ -17,21 +17,7 @@ public class GameOverviewList extends ArrayList<GameOverview> {
         Request request = new Request.Builder()
                 .url("https://boardgamegeek.com/xmlapi/search?search="+game)
                 .build();
-/*
-        try {
-            Response response = client.newCall(request).execute();
-            if (!response.isSuccessful()) {
-                add(new GameOverview(0, "Teste 0", 1.0));
-            }
-            add(new GameOverview(1, "Teste 1", 1.1));
-            add(new GameOverview(2, "Teste 2", 1.2));
-            //Quiz quiz = jsonAdapter.fromJson(response.body().source());
 
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("QuizRepo", "Unable to reach server", e);
-        }*/
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -49,8 +35,6 @@ public class GameOverviewList extends ArrayList<GameOverview> {
                 }
             }
         });
-
-        add(new GameOverview(2, "Teste 3", 1.2));
     }
 
 //    public interface QuizCallback {

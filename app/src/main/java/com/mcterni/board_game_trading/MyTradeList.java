@@ -10,7 +10,7 @@ public class MyTradeList extends AppCompatActivity  {
 
 
     private ListView gameList;
-    private GameOverviewList games = new GameOverviewList("carcassone");
+    private GameOverviewList games = new GameOverviewList("carcassonne");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,17 @@ public class MyTradeList extends AppCompatActivity  {
             }
         });
 
+
+        if (savedInstanceState != null) { //no savedInstanceState when activity is first launched
+
+
+        }
+
     }
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
 
 
+    }
 }
