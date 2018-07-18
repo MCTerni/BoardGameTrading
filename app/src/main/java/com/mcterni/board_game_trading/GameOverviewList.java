@@ -44,11 +44,13 @@ public class GameOverviewList extends ArrayList<GameOverview> {
                     throw new IOException("Unexpected code " + response);
                 } else {
                     // do something wih the result
-                    add(new GameOverview(1, "Teste 1", 1.1));
-                    add(new GameOverview(2, "Teste 2", 1.2));
+                    GameOverviewList.this.add(new GameOverview(1, "Teste 1", 1.1));
+                    GameOverviewList.this.add(new GameOverview(2, "Teste 2", 1.2));
                 }
             }
         });
+
+        add(new GameOverview(2, "Teste 3", 1.2));
     }
 
 //    public interface QuizCallback {

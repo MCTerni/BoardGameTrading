@@ -12,10 +12,10 @@ public class GameOverviewListFragment extends ListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(getActivity(), android.R.layout.simple_list_item_1, games);
-
+        ArrayAdapter < GameOverview > adapter = new ArrayAdapter<GameOverview>(getActivity(), android.R.layout.simple_list_item_1, games);
         setListAdapter(adapter);
 
     }
+
+
 }
