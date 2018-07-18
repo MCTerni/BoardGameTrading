@@ -1,7 +1,11 @@
 package com.mcterni.board_game_trading;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,12 +34,46 @@ public class GameOverviewList extends ArrayList<GameOverview> {
                     throw new IOException("Unexpected code " + response);
                 } else {
                     // do something wih the result
-                    GameOverviewList.this.add(new GameOverview(1, "Teste 1", 1.1));
-                    GameOverviewList.this.add(new GameOverview(2, "Teste 2", 1.2));
+
+//                    fillList();
+
+                    InputStream stream = null;
+                    //Instantiate the parser
+                    BGGSearchXmlParser bggSearchXmlParser = new BGGSearchXmlParser();
+                    List<BGGSearchXmlParser.GameDetails> gameDetailsList = null;
+
+                    try {
+                        stream = response.body().byteStream();
+                        gameDetailsList = bggSearchXmlParser.parse(stream);
+                        // Makes sure that the InputStream is closed after the app is
+                        // finished using it.
+                    } catch (XmlPullParserException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (stream != null) {
+                            stream.close();
+                        }
+                    }
+
+                    for(BGGSearchXmlParser.GameDetails gameDetails : gameDetailsList)
+                    {
+                        GameOverviewList.this.add(new GameOverview(1, gameDetails.gameName, 1.1));
+                    }
+
                 }
             }
         });
     }
+
+//    public void fillList(){
+//        InputStream stream = null;
+//        //Instantiate the parser
+//        BGGSearchXmlParser bggSearchXmlParser = new BGGSearchXmlParser();
+//        List<BGGSearchXmlParser.GameDetails> gameDetailsList = null;
+//
+//
+//        GameOverviewList.this.add(new GameOverview(1, "Teste 1", 1.1));
+//    }
 
 //    public interface QuizCallback {
 //        void onFailure();
