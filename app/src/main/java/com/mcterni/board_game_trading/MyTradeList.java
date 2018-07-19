@@ -1,18 +1,23 @@
 package com.mcterni.board_game_trading;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MyTradeList extends AppCompatActivity  {
 
 
     private ListView gameList;
-    private ImageButton searchButton;
-    private GameOverviewList games = new GameOverviewList("carcassonne");
+    private ImageButton buttonSearch;
+    private TextView textSearch;
+    private GameOverviewList games;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,18 +25,17 @@ public class MyTradeList extends AppCompatActivity  {
         setContentView(R.layout.activity_my_trade_list);
 
         gameList = findViewById(R.id.games_list_view);
-        searchButton = findViewById(R.id.search_button);
+        textSearch = findViewById(R.id.text_search);
+        buttonSearch = findViewById(R.id.search_button);
 
-
-
-        runOnUiThread(new Runnable() {
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(MyTradeList.this, android.R.layout.simple_list_item_1, games);
-
-                gameList.setAdapter(adapter);
+            public void onClick(View view) {
+                performSearch();
+                hideKeyboard(MyTradeList.this, textSearch);
             }
         });
+
 
 
         if (savedInstanceState != null) { //no savedInstanceState when activity is first launched
@@ -45,5 +49,22 @@ public class MyTradeList extends AppCompatActivity  {
         super.onSaveInstanceState(bundle);
 
 
+    }
+
+    public static void hideKeyboard(Context context, View editText) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+    public void performSearch(){
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                games = new GameOverviewList(textSearch.getText().toString());
+                ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(MyTradeList.this, android.R.layout.simple_list_item_1, games);
+                gameList.setAdapter(adapter);
+            }
+        });
     }
 }
