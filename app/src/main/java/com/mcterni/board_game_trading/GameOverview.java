@@ -39,8 +39,16 @@ public class GameOverview {
         this.gamePrice = gamePrice;
     }
 
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
     @Override
     public String toString() {
-        return gameName;
+        return gameId + " - "+ gameName;
     }
 }
