@@ -57,7 +57,7 @@ public class GameOverviewList extends ArrayList<GameOverview> {
 
                     for(BGGSearchXmlParser.GameDetails gameDetails : gameDetailsList)
                     {
-                        GameOverviewList.this.add(new GameOverview(1, gameDetails.gameId + " - " + gameDetails.gameName, 1.1));
+                        GameOverviewList.this.add(new GameOverview(Integer.parseInt(gameDetails.gameId),1, gameDetails.gameId + " - " + gameDetails.gameName, 1.1));
                     }
 
                 }

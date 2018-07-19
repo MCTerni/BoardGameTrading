@@ -70,8 +70,6 @@ public class BGGSearchXmlParser {
             String tagName = parser.getName();
             if (tagName.equals("name")) {
                 name = readGameName(parser);
-            } else if (tagName.equals("boardgame")) {
-                id = readId(parser);
             } else {
                 skip(parser);
             }
