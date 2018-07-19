@@ -15,7 +15,7 @@ import okhttp3.Response;
 
 public class GameOverviewList extends ArrayList<GameOverview> {
 
-    public GameOverviewList(String game){
+    public GameOverviewList(String game, final GameOverviewListCallback callback){
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -25,12 +25,14 @@ public class GameOverviewList extends ArrayList<GameOverview> {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                callback.onFailure();
                 e.printStackTrace();
             }
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
+                    callback.onFailure();
                     throw new IOException("Unexpected code " + response);
                 } else {
                     // do something wih the result
@@ -59,7 +61,7 @@ public class GameOverviewList extends ArrayList<GameOverview> {
                     {
                         GameOverviewList.this.add(new GameOverview(Integer.parseInt(gameDetails.gameId),1, gameDetails.gameId + " - " + gameDetails.gameName, 1.1));
                     }
-
+                    callback.onSuccess();
                 }
             }
         });
@@ -75,9 +77,9 @@ public class GameOverviewList extends ArrayList<GameOverview> {
 //        GameOverviewList.this.add(new GameOverview(1, "Teste 1", 1.1));
 //    }
 
-//    public interface QuizCallback {
-//        void onFailure();
-//        void onSuccess();
-//    }
+    public interface GameOverviewListCallback {
+        void onFailure();
+        void onSuccess();
+    }
 
 }

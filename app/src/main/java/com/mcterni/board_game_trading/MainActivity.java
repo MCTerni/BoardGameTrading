@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Log.e("Main", "Click on Main Image");
-                    Intent resultActivityIntent = new Intent(MainActivity.this, MyTradeList.class);
+                    Intent resultActivityIntent = new Intent(MainActivity.this, MySearchList.class);
                     startActivity(resultActivityIntent);
                 }
             });

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyTradeList">
+    tools:context=".MySearchList">
 
 
     <!--It was a trying to use fragment list, but it stopped working after I get te list from web -->

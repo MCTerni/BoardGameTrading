@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MyTradeList extends AppCompatActivity  {
+public class MySearchList extends AppCompatActivity  implements GameOverviewList.GameOverviewListCallback{
 
 
     private ListView gameList;
@@ -22,7 +22,7 @@ public class MyTradeList extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_trade_list);
+        setContentView(R.layout.activity_my_search_list);
 
         gameList = findViewById(R.id.games_list_view);
         textSearch = findViewById(R.id.text_search);
@@ -31,8 +31,10 @@ public class MyTradeList extends AppCompatActivity  {
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(games != null)
+                    games.clear();
                 performSearch();
-                hideKeyboard(MyTradeList.this, textSearch);
+                hideKeyboard(MySearchList.this, textSearch);
             }
         });
 
@@ -57,12 +59,22 @@ public class MyTradeList extends AppCompatActivity  {
     }
     public void performSearch(){
 
+        games = new GameOverviewList(textSearch.getText().toString(), this);
+
+    }
+
+    @Override
+    public void onFailure() {
+
+    }
+
+    @Override
+    public void onSuccess() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
-                games = new GameOverviewList(textSearch.getText().toString());
-                ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(MyTradeList.this, android.R.layout.simple_list_item_1, games);
+                ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(MySearchList.this, android.R.layout.simple_list_item_1, games);
                 gameList.setAdapter(adapter);
             }
         });

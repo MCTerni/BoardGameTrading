@@ -5,9 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.widget.ArrayAdapter;
 
-public class GameOverviewListFragment extends ListFragment {
+public class GameOverviewListFragment extends ListFragment implements GameOverviewList.GameOverviewListCallback {
 
-    private GameOverviewList games = new GameOverviewList("carcassone");
+    private GameOverviewList games = new GameOverviewList("carcassone", this);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -18,4 +18,13 @@ public class GameOverviewListFragment extends ListFragment {
     }
 
 
+    @Override
+    public void onFailure() {
+
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
 }
