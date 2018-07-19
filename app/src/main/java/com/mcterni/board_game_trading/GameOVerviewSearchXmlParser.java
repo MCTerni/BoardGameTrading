@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BGGSearchXmlParser {
+public class GameOVerviewSearchXmlParser {
     // We don't use namespaces
     private static final String ns = null;
 

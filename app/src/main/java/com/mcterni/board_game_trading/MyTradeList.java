@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 public class MyTradeList extends AppCompatActivity  {
 
 
@@ -32,7 +34,7 @@ public class MyTradeList extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 performSearch();
-                hideKeyboard(MyTradeList.this, textSearch);
+                //hideKeyboard(MyTradeList.this, textSearch);
             }
         });
 
@@ -57,14 +59,14 @@ public class MyTradeList extends AppCompatActivity  {
     }
     public void performSearch(){
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
 
-                games = new GameOverviewList(textSearch.getText().toString());
-                ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(MyTradeList.this, android.R.layout.simple_list_item_1, games);
-                gameList.setAdapter(adapter);
-            }
-        });
+        try {
+            games = new GameOverviewList(textSearch.getText().toString(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(MyTradeList.this, android.R.layout.simple_list_item_1, games);
+        gameList.setAdapter(adapter);
+
     }
 }
