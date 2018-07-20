@@ -40,12 +40,13 @@ public class MySearchList extends AppCompatActivity  implements GameOverviewList
         gameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // Write a message to the database
+               //Setup the database
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("game");
-
-                GameOverview game= (GameOverview) gameList.getItemAtPosition(position);
+                //get values to write to database
+                GameOverview game = (GameOverview) gameList.getItemAtPosition(position);
                 String child = String.valueOf(game.getGameId());
+                //write values to database
                 myRef.child(child).setValue(gameList.getItemAtPosition(position));
             }
         });
@@ -53,9 +54,6 @@ public class MySearchList extends AppCompatActivity  implements GameOverviewList
             @Override
             public void onClick(View view) {
                 performSearch();
-
-
-
                 hideKeyboard(MySearchList.this, textSearch);
             }
         });
@@ -91,7 +89,7 @@ public class MySearchList extends AppCompatActivity  implements GameOverviewList
     }
     public void performSearch(){
 
-        games = new GameOverviewList(textSearch.getText().toString(), this);
+        games = new GameOverviewList().searchGameOverviewLis(textSearch.getText().toString(), this);
 
     }
 
@@ -105,7 +103,6 @@ public class MySearchList extends AppCompatActivity  implements GameOverviewList
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
                 ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(MySearchList.this, android.R.layout.simple_list_item_1, games);
                 gameList.setAdapter(adapter);
             }

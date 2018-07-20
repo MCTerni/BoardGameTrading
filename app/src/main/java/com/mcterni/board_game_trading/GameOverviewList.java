@@ -1,5 +1,13 @@
 package com.mcterni.board_game_trading;
 
+import android.support.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -15,8 +23,13 @@ import okhttp3.Response;
 
 public class GameOverviewList extends ArrayList<GameOverview> {
 
-    public GameOverviewList(String game, final GameOverviewListCallback callback){
+//    public GameOverviewList(){
+//
+//
+//    }
 
+
+    public GameOverviewList searchGameOverviewLis(String game, final GameOverviewListCallback callback){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://boardgamegeek.com/xmlapi/search?search="+game)
@@ -67,17 +80,33 @@ public class GameOverviewList extends ArrayList<GameOverview> {
                 }
             }
         });
+        return this;
     }
+private String gam;
+    public GameOverviewList tradeGameOverviewList(){
 
-//    public void fillList(){
-//        InputStream stream = null;
-//        //Instantiate the parser
-//        BGGSearchXmlParser bggSearchXmlParser = new BGGSearchXmlParser();
-//        List<BGGSearchXmlParser.GameDetails> gameDetailsList = null;
-//
-//
-//        GameOverviewList.this.add(new GameOverview(1, "Teste 1", 1.1));
-//    }
+        //Setup the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                gam = dataSnapshot.getValue().toString();
+//                String game = dataSnapshot.getValue().toString();
+                GameOverviewList.this.add(new GameOverview(1,1, gam, 1.1));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return this;
+    }
 
     public interface GameOverviewListCallback {
         void onFailure();

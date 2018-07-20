@@ -7,12 +7,22 @@
     tools:context=".MainActivity">
 
 
-    <ImageView
-        android:id="@+id/imageMain"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@android:drawable/btn_star_big_on"
-        tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="266dp"
-        tools:ignore="MissingConstraints" />
+        android:orientation="vertical"
+        >
+        <Button
+            android:id = "@+id/main_search_button"
+            android:text="Search Games"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id = "@+id/main_trade_button"
+            android:text="My Trade List"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

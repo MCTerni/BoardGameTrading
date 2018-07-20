@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 
 public class GameOverviewListFragment extends ListFragment implements GameOverviewList.GameOverviewListCallback {
 
-    private GameOverviewList games = new GameOverviewList("carcassone", this);
+    private GameOverviewList games = new GameOverviewList().searchGameOverviewLis("carcassone", this);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
