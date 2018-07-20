@@ -42,7 +42,7 @@ public class MySearchList extends AppCompatActivity  implements GameOverviewList
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                //Setup the database
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("game");
+                DatabaseReference myRef = database.getReference(getString(R.string.db_game_list));
                 //get values to write to database
                 GameOverview game = (GameOverview) gameList.getItemAtPosition(position);
                 String child = String.valueOf(game.getGameId());

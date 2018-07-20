@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -17,6 +19,8 @@ public class MyTradeList extends AppCompatActivity {
 
     private ListView tradeList;
     private GameOverviewList games;
+    private DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,14 +28,31 @@ public class MyTradeList extends AppCompatActivity {
 
         games = new GameOverviewList();
         tradeList = findViewById(R.id.trade_list);
+        myRef = FirebaseDatabase.getInstance().getReference(getString(R.string.db_game_list));
+
 //        games = new GameOverviewList().tradeGameOverviewList();
         loadTradeList();
+
+        tradeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                //get values to write to database
+                GameOverview game = (GameOverview) tradeList.getItemAtPosition(position);
+                String child = String.valueOf(game.getGameId());
+                removeItemTradeList(child);
+                loadTradeList();
+            }
+        });
+
+
     }
 
-    public void loadTradeList(){
-        //Setup the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("game");
+    private void removeItemTradeList(String child) {
+        myRef.child(child).removeValue();
+    }
+
+
+    private void loadTradeList(){
 
 //        myRef.addValueEventListener(new ValueEventListener() {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
