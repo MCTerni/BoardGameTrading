@@ -82,31 +82,29 @@ public class GameOverviewList extends ArrayList<GameOverview> {
         });
         return this;
     }
-private String gam;
-    public GameOverviewList tradeGameOverviewList(){
-
-        //Setup the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                gam = dataSnapshot.getValue().toString();
+//    public GameOverviewList tradeGameOverviewList(){
+//
+//        //Setup the database
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("message");
+//
+//
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
 //                String game = dataSnapshot.getValue().toString();
-                GameOverviewList.this.add(new GameOverview(1,1, gam, 1.1));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        return this;
-    }
+//                GameOverviewList.this.add(new GameOverview(1,1, game, 1.1));
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//        return this;
+//    }
 
     public interface GameOverviewListCallback {
         void onFailure();

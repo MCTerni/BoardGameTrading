@@ -3,6 +3,7 @@ package com.mcterni.board_game_trading;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,30 +25,34 @@ public class MyTradeList extends AppCompatActivity {
         games = new GameOverviewList();
         tradeList = findViewById(R.id.trade_list);
 //        games = new GameOverviewList().tradeGameOverviewList();
-//        games.add(new GameOverview(1,1, "gameName", 1.1));
+        loadTradeList();
+    }
 
-
+    public void loadTradeList(){
         //Setup the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("game");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+//        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                GameOverview game = (GameOverview) dataSnapshot.getValue();
-//                String game = dataSnapshot.getValue().toString();
-                //games.add(new GameOverview(1, 1, gam, 1.1));
+                games.clear();
+
+                for (DataSnapshot gameSnapshot: dataSnapshot.getChildren()) {
+                    GameOverview game = gameSnapshot.getValue(GameOverview.class);
+                    games.add(game);
+                }
+
                 ArrayAdapter<GameOverview> adapter = new ArrayAdapter<GameOverview>(MyTradeList.this, android.R.layout.simple_list_item_1, games);
                 tradeList.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.e("TradeList","DB connection cancelled");
             }
         });
-
-
     }
 }

@@ -1,6 +1,10 @@
 package com.mcterni.board_game_trading;
 
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameOverview {
     private int gameId;
@@ -8,11 +12,23 @@ public class GameOverview {
     private String gameName;
     private double gamePrice;
 
+    public GameOverview(){};
+
     public GameOverview(int gameId, int imageId, String gameName, double gamePrice){
         this.gameId = gameId;
         this.imageId = imageId;
         this.gameName = gameName;
         this.gamePrice = gamePrice;
+    }
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("gameId", gameId);
+        result.put("imageId", imageId);
+        result.put("gameName", gameName);
+        result.put("gamePrice", gamePrice);
+
+        return result;
     }
 
     public int getImageId() {
